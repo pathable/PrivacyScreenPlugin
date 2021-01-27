@@ -9,7 +9,6 @@
     <config-file parent="/*" target="res/xml/config.xml">
       <feature name="PrivacyScreenPlugin">
         <param name="android-package" value="org.devgeeks.privacyscreen.PrivacyScreenPlugin"/>
-        <param name="onload" value="true" />
       </feature>
     </config-file>
 

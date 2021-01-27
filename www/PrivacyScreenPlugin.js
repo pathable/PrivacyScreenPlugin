@@ -1,8 +1,7 @@
-//var exec = require('cordova/exec');
+exports.makeViewSecure = function(arg, success, error) {
+    cordova.exec(success, error, "PrivacyScreenPlugin", "set", [arg])
+}
 
-/** 
- * Not sure this will even have a JS API
- */
-//exports.activate = function(arg, success, error) {
-  //exec(success, error, "PrivacyScreenPlugin", "activate", [arg]);
-//};
+exports.makeViewInsecure = function(arg, success, error) {
+    cordova.exec(success, error, "PrivacyScreenPlugin", "unset", [arg])
+}

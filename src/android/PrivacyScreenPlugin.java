@@ -28,10 +28,30 @@ import android.os.Bundle;
  */
 public class PrivacyScreenPlugin extends CordovaPlugin {
 
+  private String SET_FLAG_SECURE_ACTION = "set";
+  private String UNSET_FLAG_SECURE_ACTION = "unset";
+
   @Override
-  public void initialize(CordovaInterface cordova, CordovaWebView webView) {
-    super.initialize(cordova, webView);
+  public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
+
+    if (action.equalsIgnoreCase(SET_FLAG_SECURE_ACTION)) {
+      this.setFlagSecure();
+      callbackContext.success();
+    } else if (action.equalsIgnoreCase(UNSET_FLAG_SECURE_ACTION)) {
+      this.unsetFlagSecure();
+      callbackContext.success();
+    }
+
+    return false;
+  }
+
+  private void setFlagSecure() {
     Activity activity = this.cordova.getActivity();
     activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+  }
+
+  private void unsetFlagSecure() {
+    Activity activity = this.cordova.getActivity();
+    activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
   }
 }
