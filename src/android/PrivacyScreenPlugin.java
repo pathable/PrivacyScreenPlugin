@@ -35,23 +35,39 @@ public class PrivacyScreenPlugin extends CordovaPlugin {
   public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
 
     if (action.equalsIgnoreCase(SET_FLAG_SECURE_ACTION)) {
-      this.setFlagSecure();
-      callbackContext.success();
+      this.setFlagSecure(callbackContext);
     } else if (action.equalsIgnoreCase(UNSET_FLAG_SECURE_ACTION)) {
-      this.unsetFlagSecure();
-      callbackContext.success();
+      this.unsetFlagSecure(callbackContext);
+      callbackContext.success(callbackContext);
     }
 
     return false;
   }
 
-  private void setFlagSecure() {
-    Activity activity = this.cordova.getActivity();
-    activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+  private void setFlagSecure(CallbackContext callbackContext) {
+    this.cordova.getActivity().runOnUiThread(new Runnable() {
+      @Override
+      public void run() {
+        Activity activity = this.cordova.getActivity();
+        activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        callbackContext.success("Screenshots disabled.");
+      }
+    });
   }
 
-  private void unsetFlagSecure() {
-    Activity activity = this.cordova.getActivity();
-    activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
+  private void unsetFlagSecure(CallbackContext callbackContext) {
+    this.cordova.getActivity().runOnUiThread(new Runnable() {
+      @Override
+      public void run() {
+        Activity activity = this.cordova.getActivity();
+        int flags = activity.getWindow().getAttributes().flags;
+        if ((flags && WindowManager.LayoutParams.FLAG_SECURE) = 0) {
+          callbackContext.success("Screenshots are already enabled.");
+          return;
+        }
+        activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        callbackContext.success("Screenshots enabled.");
+      }
+    });
   }
 }
