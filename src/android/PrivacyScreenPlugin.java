@@ -60,7 +60,7 @@ public class PrivacyScreenPlugin extends CordovaPlugin {
       public void run() {
         Activity activity = this.cordova.getActivity();
         int flags = activity.getWindow().getAttributes().flags;
-        if ((flags && WindowManager.LayoutParams.FLAG_SECURE) = 0) {
+        if ((flags & WindowManager.LayoutParams.FLAG_SECURE) = 0) {
           callbackContext.success("Screenshots are already enabled.");
           return;
         }
