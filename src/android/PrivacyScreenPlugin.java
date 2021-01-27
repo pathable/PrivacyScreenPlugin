@@ -38,7 +38,6 @@ public class PrivacyScreenPlugin extends CordovaPlugin {
       this.setFlagSecure(callbackContext);
     } else if (action.equalsIgnoreCase(UNSET_FLAG_SECURE_ACTION)) {
       this.unsetFlagSecure(callbackContext);
-      callbackContext.success(callbackContext);
     }
 
     return false;
