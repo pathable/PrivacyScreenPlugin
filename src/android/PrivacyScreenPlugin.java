@@ -47,8 +47,7 @@ public class PrivacyScreenPlugin extends CordovaPlugin {
     this.cordova.getActivity().runOnUiThread(new Runnable() {
       @Override
       public void run() {
-        Activity activity = this.cordova.getActivity();
-        activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+       this.cordova.getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
         callbackContext.success("Screenshots disabled.");
       }
     });
@@ -58,14 +57,13 @@ public class PrivacyScreenPlugin extends CordovaPlugin {
     this.cordova.getActivity().runOnUiThread(new Runnable() {
       @Override
       public void run() {
-        Activity activity = this.cordova.getActivity();
-        int flags = activity.getWindow().getAttributes().flags;
-        if ((flags & WindowManager.LayoutParams.FLAG_SECURE) = 0) {
-          callbackContext.success("Screenshots are already enabled.");
+        int flags = this.cordova.getActivity().getWindow().getAttributes().flags;
+        if ((flags & WindowManager.LayoutParams.FLAG_SECURE) != 0) {
+          this.cordova.getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
+          callbackContext.success("Screenshots enabled.");
           return;
         }
-        activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
-        callbackContext.success("Screenshots enabled.");
+        callbackContext.success("Screenshots are already enabled.");
       }
     });
   }
