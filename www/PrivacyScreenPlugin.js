@@ -1,7 +1,6 @@
-exports.makeViewSecure = function(arg, success, error) {
-    cordova.exec(success, error, "PrivacyScreenPlugin", "set", [arg])
+const privacyScreenPlugin = {
+    makeViewSecure: () => cordova.exec(success, error, "PrivacyScreenPlugin", "set", [arg]),
+    makeViewInsecure: () => cordova.exec(success, error, "PrivacyScreenPlugin", "unset", [arg])
 }
 
-exports.makeViewInsecure = function(arg, success, error) {
-    cordova.exec(success, error, "PrivacyScreenPlugin", "unset", [arg])
-}
+module.exports = privacyScreenPlugin
